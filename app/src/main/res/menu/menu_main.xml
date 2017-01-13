@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/remove_timers"
+        android:title="@string/remove_timers" />
+    <item android:id="@+id/add_timer"
+        android:title="@string/add_timer" />
+    <item android:id="@+id/clear_timers"
+        android:title="@string/clear_timers"/>
+    <item android:id="@+id/show_db"
+        android:title="@string/show_db"/>
+</menu>
