@@ -37,39 +37,41 @@ public class ProjectList extends ArrayAdapter<Project> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
+        final Project project = list.get(position);
+
         if (convertView == null) {
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(R.layout.row_button_layout, null);
-            final ViewHolder viewHolder = new ViewHolder();
+            ViewHolder viewHolder = new ViewHolder();
             viewHolder.text = (TextView) view.findViewById(R.id.label);
             viewHolder.image = (ImageView) view.findViewById(R.id.icon);
             viewHolder.time = (TextView) view.findViewById(R.id.time);
 
             viewHolder.text.setOnClickListener(new ChangeNameByClickingName(viewHolder, context, datasource, this, list));
-            view.setTag(viewHolder);
-            viewHolder.text.setTag(list.get(position));
+            viewHolder.text.setTag(project);
 
             viewHolder.image.setOnTouchListener(new ToggleTimerByTouchingIcon(viewHolder, datasource, this));
-            view.setTag(viewHolder);
-            viewHolder.image.setTag(list.get(position));
+            viewHolder.image.setTag(project);
 
             viewHolder.time.setOnTouchListener(new DeleteProjectByTouchingTime(viewHolder, datasource, this,context));
-            view.setTag(viewHolder);
-            viewHolder.time.setTag(list.get(position));
+            viewHolder.time.setTag(project);
 
+            view.setTag(viewHolder);
 
         } else {
+            ViewHolder viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder.text.setTag(project);
+            viewHolder.time.setTag(project);
+            viewHolder.image.setTag(project);
             view = convertView;
-            ((ViewHolder) view.getTag()).text.setTag(list.get(position));
-            ((ViewHolder) view.getTag()).time.setTag(list.get(position));
-            ((ViewHolder) view.getTag()).image.setTag(list.get(position));
         }
 
         // Set values on display.
+
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).getName());
-        holder.time.setText(list.get(position).getPrintDuration());
-        if(list.get(position).isActive()) {
+        holder.text.setText(project.getName());
+        holder.time.setText(project.getPrintDuration());
+        if(project.isActive()) {
             holder.image.setImageResource(R.drawable.timer_active);
         }
         else {
