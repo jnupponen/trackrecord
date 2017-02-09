@@ -18,19 +18,17 @@ public class DeleteProjectByTouchingTime implements View.OnTouchListener {
     private static final String DELETE_PROJECT_OK_BUTTON_TEXT = "Ok";
     private static final String DELETE_PROJECT_CANCEL_BUTTON_TEXT = "Cancel";
 
-    private ProjectList.ViewHolder viewHolder;
     private Datasource datasource;
     private ProjectList projectList;
     private Activity context;
-    public DeleteProjectByTouchingTime(ProjectList.ViewHolder viewHolder, Datasource datasource, ProjectList projectList, Activity context) {
-        this.viewHolder = viewHolder;
+    public DeleteProjectByTouchingTime(Activity context, Datasource datasource, ProjectList projectList) {
         this.datasource = datasource;
         this.projectList = projectList;
         this.context = context;
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Project element = (Project) viewHolder.time.getTag();
+        Project element = (Project) v.getTag();
         deleteProject(element);
 
         return false;

@@ -13,17 +13,16 @@ import fi.antientropy.trackrecord.persistence.Datasource;
 
 public class ToggleTimerByTouchingIcon implements View.OnTouchListener {
 
-    private ProjectList.ViewHolder viewHolder;
     private Datasource datasource;
     private ProjectList projectList;
-    public ToggleTimerByTouchingIcon(ProjectList.ViewHolder viewHolder, Datasource datasource, ProjectList projectList) {
-        this.viewHolder = viewHolder;
+    public ToggleTimerByTouchingIcon(Datasource datasource, ProjectList projectList) {
         this.datasource = datasource;
         this.projectList = projectList;
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Project element = (Project) viewHolder.image.getTag();
+
+        Project element = (Project) v.getTag();
         Project activeElement = datasource.getActiveProject();
 
         if(element.isActive()) {

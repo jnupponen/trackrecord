@@ -6,6 +6,7 @@ import org.joda.time.Period;
 import org.joda.time.format.ISODateTimeFormat;
 
 import fi.antientropy.trackrecord.MainActivity;
+import fi.antientropy.trackrecord.R;
 
 /**
  * Created by jussi on 2/17/15.
@@ -112,5 +113,14 @@ public class Project {
         setActive(true);
         DateTime now = DateTime.now();
         setStart(now.toString(ISODateTimeFormat.dateHourMinuteSecondMillis()));
+    }
+
+    public int getTimerImage() {
+        if(isActive()) {
+            return R.drawable.timer_active;
+        }
+        else {
+            return R.drawable.timer_not_active;
+        }
     }
 }

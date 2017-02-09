@@ -15,8 +15,6 @@ import fi.antientropy.trackrecord.persistence.Datasource;
 
 public class ProjectList extends ArrayAdapter<Project> {
 
-
-
     private final List<Project> list;
     private final Activity context;
     private final Datasource datasource;
@@ -39,44 +37,34 @@ public class ProjectList extends ArrayAdapter<Project> {
         View view;
         final Project project = list.get(position);
 
-        if (convertView == null) {
+        if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(R.layout.row_button_layout, null);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.text = (TextView) view.findViewById(R.id.label);
-            viewHolder.image = (ImageView) view.findViewById(R.id.icon);
-            viewHolder.time = (TextView) view.findViewById(R.id.time);
-
-            viewHolder.text.setOnClickListener(new ChangeNameByClickingName(viewHolder, context, datasource, this, list));
             viewHolder.text.setTag(project);
 
-            viewHolder.image.setOnTouchListener(new ToggleTimerByTouchingIcon(viewHolder, datasource, this));
+            viewHolder.image = (ImageView) view.findViewById(R.id.icon);
             viewHolder.image.setTag(project);
 
-            viewHolder.time.setOnTouchListener(new DeleteProjectByTouchingTime(viewHolder, datasource, this,context));
+            viewHolder.time = (TextView) view.findViewById(R.id.time);
             viewHolder.time.setTag(project);
+
+            viewHolder.text.setOnClickListener(new ChangeNameByClickingName(context, datasource, this, list));
+            viewHolder.image.setOnTouchListener(new ToggleTimerByTouchingIcon(datasource, this));
+            viewHolder.time.setOnTouchListener(new DeleteProjectByTouchingTime(context, datasource, this));
 
             view.setTag(viewHolder);
 
         } else {
-            ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-            viewHolder.text.setTag(project);
-            viewHolder.time.setTag(project);
-            viewHolder.image.setTag(project);
             view = convertView;
         }
 
         // Set values on display.
-
-        ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(project.getName());
-        holder.time.setText(project.getPrintDuration());
-        if(project.isActive()) {
-            holder.image.setImageResource(R.drawable.timer_active);
-        }
-        else {
-            holder.image.setImageResource(R.drawable.timer_not_active);
-        }
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
+        viewHolder.text.setText(project.getName());
+        viewHolder.time.setText(project.getPrintDuration());
+        viewHolder.image.setImageResource(project.getTimerImage());
 
         return view;
     }

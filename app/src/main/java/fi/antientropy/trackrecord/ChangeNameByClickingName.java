@@ -18,14 +18,12 @@ import fi.antientropy.trackrecord.persistence.Datasource;
 
 public class ChangeNameByClickingName implements View.OnClickListener {
 
-    private ProjectList.ViewHolder viewHolder;
     private Activity context;
     private Datasource datasource;
     private ProjectList projectList;
     private List<Project> list;
 
-    public ChangeNameByClickingName(ProjectList.ViewHolder viewHolder, Activity context, Datasource datasource, ProjectList projectList, List<Project> list) {
-        this.viewHolder = viewHolder;
+    public ChangeNameByClickingName(Activity context, Datasource datasource, ProjectList projectList, List<Project> list) {
         this.context = context;
         this.datasource = datasource;
         this.projectList = projectList;
@@ -34,9 +32,8 @@ public class ChangeNameByClickingName implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Project element = (Project) viewHolder.text.getTag();
-        final Project elementToUpdate = (Project) viewHolder.text.getTag();
-        final String elementName = element.getName();
+        final Project elementToUpdate = (Project) v.getTag();
+        final String elementName = elementToUpdate.getName();
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
@@ -80,7 +77,5 @@ public class ChangeNameByClickingName implements View.OnClickListener {
             }
         });
         dialog.show();
-
-        element.setName(elementName);
     }
 }
