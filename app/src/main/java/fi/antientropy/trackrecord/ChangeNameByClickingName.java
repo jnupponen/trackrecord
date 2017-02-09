@@ -19,12 +19,10 @@ public class ChangeNameByClickingName implements View.OnClickListener {
 
     private Datasource datasource;
     private ProjectList projectList;
-    private List<Project> list;
 
-    public ChangeNameByClickingName(Datasource datasource, ProjectList projectList, List<Project> list) {
+    public ChangeNameByClickingName(Datasource datasource, ProjectList projectList) {
         this.datasource = datasource;
         this.projectList = projectList;
-        this.list = list;
     }
 
     @Override
@@ -50,9 +48,10 @@ public class ChangeNameByClickingName implements View.OnClickListener {
                             projectToUpdate.getStart(), 0, projectToUpdate.getDuration());
                     update.setActive(projectToUpdate.isActive());
 
-                    Project addedModel = datasource.update(update);
+                    datasource.update(update);
                     projectList.notifyDataSetChanged();
-                    list.set(projectList.getPosition(projectToUpdate), addedModel);
+                    projectList.clear();
+                    projectList.addAll(datasource.getProjects());
                 }
             }
         });
