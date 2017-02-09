@@ -21,12 +21,12 @@ public class ToggleTimerByTouchingIcon implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        Project element = (Project) v.getTag();
+        Project project = (Project) v.getTag();
         Project activeElement = datasource.getActiveProject();
 
-        if(element.isActive()) {
-            element.stopTimer();
-            datasource.update(element);
+        if(project.isActive()) {
+            project.stopTimer();
+            datasource.update(project);
         }
         else {
             if(activeElement != null) {
@@ -34,8 +34,8 @@ public class ToggleTimerByTouchingIcon implements View.OnTouchListener {
                 datasource.update(activeElement);
             }
 
-            element.startTimer();
-            datasource.update(element);
+            project.startTimer();
+            datasource.update(project);
         }
 
         projectList.notifyDataSetChanged();

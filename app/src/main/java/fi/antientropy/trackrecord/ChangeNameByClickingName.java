@@ -29,8 +29,8 @@ public class ChangeNameByClickingName implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        final Project elementToUpdate = (Project) v.getTag();
-        final String elementName = elementToUpdate.getName();
+        final Project projectToUpdate = (Project) v.getTag();
+        final String projectName = projectToUpdate.getName();
 
         AlertDialog.Builder alert = new AlertDialog.Builder(projectList.getContext());
 
@@ -38,21 +38,21 @@ public class ChangeNameByClickingName implements View.OnClickListener {
 
         // Set an EditText view to get user input
         final EditText input = new EditText(projectList.getContext());
-        input.setText(elementName);
+        input.setText(projectName);
         alert.setView(input);
 
         alert.setPositiveButton(MainActivity.ADD_BUTTON_TEXT, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String value = input.getText().toString();
 
-                if (!elementName.contentEquals(value) && !value.trim().isEmpty()) {
-                    Project update = new Project(elementToUpdate.getId(), value,
-                            elementToUpdate.getStart(), 0, elementToUpdate.getDuration());
-                    update.setActive(elementToUpdate.isActive());
+                if (!projectName.contentEquals(value) && !value.trim().isEmpty()) {
+                    Project update = new Project(projectToUpdate.getId(), value,
+                            projectToUpdate.getStart(), 0, projectToUpdate.getDuration());
+                    update.setActive(projectToUpdate.isActive());
 
                     Project addedModel = datasource.update(update);
                     projectList.notifyDataSetChanged();
-                    list.set(projectList.getPosition(elementToUpdate), addedModel);
+                    list.set(projectList.getPosition(projectToUpdate), addedModel);
                 }
             }
         });

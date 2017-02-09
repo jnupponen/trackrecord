@@ -26,8 +26,8 @@ public class DeleteProjectByTouchingTime implements View.OnTouchListener {
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Project element = (Project) v.getTag();
-        deleteProject(element);
+        Project project = (Project) v.getTag();
+        deleteProject(project);
 
         return false;
     }
