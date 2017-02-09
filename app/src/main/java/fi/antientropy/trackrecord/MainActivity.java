@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         datasource.open();
-        adapter = new ProjectList(this, getModel(), datasource);
+        adapter = new ProjectList(this, datasource);
         ListView listview = (ListView) findViewById(R.id.list);
         listview.setAdapter(adapter);
 
@@ -181,11 +181,6 @@ public class MainActivity extends AppCompatActivity {
             adapter.addAll(datasource.getProjects());
         }
         updateTime(mainTimer.getTime());
-    }
-
-    // Populate project list.
-    private List<Project> getModel() {
-        return datasource.getProjects();
     }
 
     public void clearDatabase() {

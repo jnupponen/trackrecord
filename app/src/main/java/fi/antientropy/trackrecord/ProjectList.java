@@ -8,21 +8,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import fi.antientropy.trackrecord.domain.Project;
 import fi.antientropy.trackrecord.persistence.Datasource;
 
 public class ProjectList extends ArrayAdapter<Project> {
 
-    private final List<Project> list;
     private final Activity context;
     private final Datasource datasource;
 
-    public ProjectList(Activity context, List<Project> list, Datasource datasource) {
-        super(context, R.layout.row_button_layout, list);
+    public ProjectList(Activity context, Datasource datasource) {
+        super(context, R.layout.row_button_layout, datasource.getProjects());
         this.context = context;
-        this.list = list;
         this.datasource = datasource;
     }
 
@@ -35,7 +31,7 @@ public class ProjectList extends ArrayAdapter<Project> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
-        final Project project = list.get(position);
+        final Project project = this.getItem(position);
 
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = context.getLayoutInflater();
