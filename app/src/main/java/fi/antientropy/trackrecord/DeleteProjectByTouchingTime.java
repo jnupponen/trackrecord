@@ -1,6 +1,5 @@
 package fi.antientropy.trackrecord;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.MotionEvent;
@@ -20,11 +19,10 @@ public class DeleteProjectByTouchingTime implements View.OnTouchListener {
 
     private Datasource datasource;
     private ProjectList projectList;
-    private Activity context;
-    public DeleteProjectByTouchingTime(Activity context, Datasource datasource, ProjectList projectList) {
+
+    public DeleteProjectByTouchingTime(Datasource datasource, ProjectList projectList) {
         this.datasource = datasource;
         this.projectList = projectList;
-        this.context = context;
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -35,7 +33,7 @@ public class DeleteProjectByTouchingTime implements View.OnTouchListener {
     }
 
     private void deleteProject(final Project project) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        AlertDialog.Builder alert = new AlertDialog.Builder(projectList.getContext());
 
         alert.setTitle(DELETE_PROJECT_TEXT);
         alert.setMessage(project.getName());

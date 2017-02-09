@@ -50,9 +50,9 @@ public class ProjectList extends ArrayAdapter<Project> {
             viewHolder.time = (TextView) view.findViewById(R.id.time);
             viewHolder.time.setTag(project);
 
-            viewHolder.text.setOnClickListener(new ChangeNameByClickingName(context, datasource, this, list));
+            viewHolder.text.setOnClickListener(new ChangeNameByClickingName(datasource, this, list));
             viewHolder.image.setOnTouchListener(new ToggleTimerByTouchingIcon(datasource, this));
-            viewHolder.time.setOnTouchListener(new DeleteProjectByTouchingTime(context, datasource, this));
+            viewHolder.time.setOnTouchListener(new DeleteProjectByTouchingTime(datasource, this));
 
             view.setTag(viewHolder);
 

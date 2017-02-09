@@ -1,6 +1,5 @@
 package fi.antientropy.trackrecord;
 
-import android.provider.ContactsContract;
 import android.view.MotionEvent;
 import android.view.View;
 

@@ -1,6 +1,5 @@
 package fi.antientropy.trackrecord;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
@@ -18,13 +17,11 @@ import fi.antientropy.trackrecord.persistence.Datasource;
 
 public class ChangeNameByClickingName implements View.OnClickListener {
 
-    private Activity context;
     private Datasource datasource;
     private ProjectList projectList;
     private List<Project> list;
 
-    public ChangeNameByClickingName(Activity context, Datasource datasource, ProjectList projectList, List<Project> list) {
-        this.context = context;
+    public ChangeNameByClickingName(Datasource datasource, ProjectList projectList, List<Project> list) {
         this.datasource = datasource;
         this.projectList = projectList;
         this.list = list;
@@ -35,12 +32,12 @@ public class ChangeNameByClickingName implements View.OnClickListener {
         final Project elementToUpdate = (Project) v.getTag();
         final String elementName = elementToUpdate.getName();
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        AlertDialog.Builder alert = new AlertDialog.Builder(projectList.getContext());
 
         alert.setTitle(MainActivity.WRITE_TIMER_NAME_PROMPT);
 
         // Set an EditText view to get user input
-        final EditText input = new EditText(context);
+        final EditText input = new EditText(projectList.getContext());
         input.setText(elementName);
         alert.setView(input);
 
