@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fi.antientropy.trackrecord.domain.Project;
+import fi.antientropy.trackrecord.listeners.ChangeNameByClickingName;
+import fi.antientropy.trackrecord.listeners.DeleteProjectByTouchingTime;
+import fi.antientropy.trackrecord.listeners.ToggleTimerByTouchingIcon;
 import fi.antientropy.trackrecord.persistence.Datasource;
 
 public class ProjectList extends ArrayAdapter<Project> {

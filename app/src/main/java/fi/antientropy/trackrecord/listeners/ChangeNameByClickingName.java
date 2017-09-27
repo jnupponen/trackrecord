@@ -1,4 +1,4 @@
-package fi.antientropy.trackrecord;
+package fi.antientropy.trackrecord.listeners;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,6 +8,8 @@ import android.widget.EditText;
 
 import java.util.List;
 
+import fi.antientropy.trackrecord.MainActivity;
+import fi.antientropy.trackrecord.ProjectList;
 import fi.antientropy.trackrecord.domain.Project;
 import fi.antientropy.trackrecord.persistence.Datasource;
 

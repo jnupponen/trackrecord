@@ -1,10 +1,11 @@
-package fi.antientropy.trackrecord;
+package fi.antientropy.trackrecord.listeners;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.MotionEvent;
 import android.view.View;
 
+import fi.antientropy.trackrecord.ProjectList;
 import fi.antientropy.trackrecord.domain.Project;
 import fi.antientropy.trackrecord.persistence.Datasource;
 
