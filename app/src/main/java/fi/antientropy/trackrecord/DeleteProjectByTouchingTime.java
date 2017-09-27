@@ -27,32 +27,21 @@ public class DeleteProjectByTouchingTime implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         Project project = (Project) v.getTag();
-        deleteProject(project);
-
-        return false;
-    }
-
-    private void deleteProject(final Project project) {
         AlertDialog.Builder alert = new AlertDialog.Builder(projectList.getContext());
 
         alert.setTitle(DELETE_PROJECT_TEXT);
         alert.setMessage(project.getName());
 
-        alert.setPositiveButton(DELETE_PROJECT_OK_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                datasource.delete(project);
-                projectList.remove(project);
-
-                projectList.notifyDataSetChanged();
-            }
+        alert.setPositiveButton(DELETE_PROJECT_OK_BUTTON_TEXT, (dialog, whichButton) -> {
+            datasource.delete(project);
+            projectList.remove(project);
+            projectList.notifyDataSetChanged();
         });
 
-        alert.setNegativeButton(DELETE_PROJECT_CANCEL_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
+        alert.setNegativeButton(DELETE_PROJECT_CANCEL_BUTTON_TEXT, (dialog, whichButton) -> {});
 
         alert.show();
+
+        return false;
     }
 }

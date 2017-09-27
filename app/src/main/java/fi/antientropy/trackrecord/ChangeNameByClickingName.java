@@ -39,39 +39,31 @@ public class ChangeNameByClickingName implements View.OnClickListener {
         input.setText(projectName);
         alert.setView(input);
 
-        alert.setPositiveButton(MainActivity.ADD_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String value = input.getText().toString();
+        alert.setPositiveButton(MainActivity.ADD_BUTTON_TEXT, (dialog, whichButton) -> {
+            String value = input.getText().toString();
 
-                if (!projectName.contentEquals(value) && !value.trim().isEmpty()) {
-                    Project update = new Project(projectToUpdate.getId(), value,
-                            projectToUpdate.getStart(), 0, projectToUpdate.getDuration());
-                    update.setActive(projectToUpdate.isActive());
+            if (!projectName.contentEquals(value) && !value.trim().isEmpty()) {
+                Project update = new Project(projectToUpdate.getId(), value,
+                        projectToUpdate.getStart(), 0, projectToUpdate.getDuration());
+                update.setActive(projectToUpdate.isActive());
 
-                    datasource.update(update);
-                    projectList.notifyDataSetChanged();
-                    projectList.clear();
-                    projectList.addAll(datasource.getProjects());
-                }
+                datasource.update(update);
+                projectList.notifyDataSetChanged();
+                projectList.clear();
+                projectList.addAll(datasource.getProjects());
             }
         });
 
-        alert.setNegativeButton(MainActivity.CANCEL_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
+        alert.setNegativeButton(MainActivity.CANCEL_BUTTON_TEXT, (dialog, whichButton) -> {});
 
         final AlertDialog dialog = alert.create();
 
-        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
+        input.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) {
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
+
         dialog.show();
     }
 }

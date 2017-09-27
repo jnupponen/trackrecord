@@ -100,26 +100,20 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle(ARE_YOU_SURE_PROMPT);
-
-        alert.setPositiveButton(CONFIRM_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if(action == CLEAR_DATABASE_ACTION) {
-                    clearDatabase();
-                }
-                else if(action == RESET_TIMERS_ACTION) {
-                    reset();
-                }
+        alert.setPositiveButton(CONFIRM_BUTTON_TEXT, (dialog, whichButton) -> {
+            if(action == CLEAR_DATABASE_ACTION) {
+                clearDatabase();
+            }
+            else if(action == RESET_TIMERS_ACTION) {
+                reset();
             }
         });
 
-        alert.setNegativeButton(CANCEL_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+        alert.setNegativeButton(CANCEL_BUTTON_TEXT, (dialog, whichButton) -> {
                 // Canceled.
-            }
         });
 
-        final AlertDialog dialog = alert.create();
-        dialog.show();
+        alert.create().show();
     }
 
     private void start_activity() {
@@ -206,31 +200,21 @@ public class MainActivity extends AppCompatActivity {
         final EditText input = new EditText(this);
         alert.setView(input);
 
-        alert.setPositiveButton(ADD_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String value = input.getText().toString();
-                Project project = new Project(value);
-                Project addedModel = datasource.persist(project);
-                adapter.insert(addedModel, adapter.getCount());
-                adapter.notifyDataSetChanged();
-
-            }
+        alert.setPositiveButton(ADD_BUTTON_TEXT, (dialog, whichButton) -> {
+            String value = input.getText().toString();
+            Project project = new Project(value);
+            Project addedModel = datasource.persist(project);
+            adapter.insert(addedModel, adapter.getCount());
+            adapter.notifyDataSetChanged();
         });
 
-        alert.setNegativeButton(CANCEL_BUTTON_TEXT, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
+        alert.setNegativeButton(CANCEL_BUTTON_TEXT, (dialog, whichButton) -> { });
 
         final AlertDialog dialog = alert.create();
 
-        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
+        input.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) {
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
         dialog.show();
@@ -243,19 +227,14 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             while (mStop) {
                 try {
-                    mHandler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            // Update UI.
-                            updateTime(mainTimer.getTime());
-                            adapter.notifyDataSetChanged();
-                        }
+                    mHandler.post(() -> {
+                        // Update UI.
+                        updateTime(mainTimer.getTime());
+                        adapter.notifyDataSetChanged();
                     });
                     Thread.sleep(250);
                 } catch (Exception e) {
                     mStop = !mStop;
-
                 }
             }
         }
